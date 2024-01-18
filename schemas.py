@@ -12,7 +12,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-
+    hashed_password: str
     class Config:
         orm_mode = True
 

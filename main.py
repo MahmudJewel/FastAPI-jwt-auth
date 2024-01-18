@@ -1,14 +1,15 @@
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 
-# from . import crud, models, schemas
 import functions, models, schemas
 from database import SessionLocal, engine
+from jwt import users
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.include_router(users.router)
 
 # Dependency
 def get_db():
@@ -31,7 +32,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return functions.create_user(db=db, user=user)
 
 # get all users 
-@app.get("/users/", response_model=list[schemas.User])
+@app.get("/users/", response_model=list[schemas.User]) # with Pydantic response model
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = functions.get_users(db, skip=skip, limit=limit)
     return users
