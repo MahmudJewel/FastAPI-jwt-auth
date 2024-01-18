@@ -7,8 +7,11 @@ from jwt import users
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+SECRET_KEY = "6a1c3d7dbc5cc0ca18c734f2c39af71644149038bb1292de658060d3422c7028"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+app = FastAPI()
 app.include_router(users.router)
 
 # Dependency
