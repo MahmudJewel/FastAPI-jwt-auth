@@ -1,5 +1,9 @@
-from fastapi import Depends, FastAPI, HTTPException, APIRouter
+from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.orm import Session
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from datetime import datetime, timedelta, timezone
+from typing import Annotated
+from jose import JWTError, jwt
 
 import functions, models, schemas
 from database import SessionLocal, engine
@@ -47,3 +51,22 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+# getting access token for login 
+@app.post("/token", response_model=schemas.Token)
+async def login_for_access_token(
+    user: schemas.UserCreate,
+    db: Session = Depends(get_db)
+) -> schemas.Token:
+    member = functions.authenticate_user(db, user=user)
+    if not member:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = functions.create_access_token(
+        data={"sub": member.email}, expires_delta=access_token_expires
+    )
+    return schemas.Token(access_token=access_token, token_type="bearer")
