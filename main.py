@@ -54,6 +54,12 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 
 # partial update user by id 
 @app.patch("/user/{user_id}", response_model=schemas.User)
+def update_user_partially(user_id: int, user:schemas.UserUpdate, db: Session = Depends(get_db)):
+    updated_db_user = functions.update_user_partially(db=db, user_id=user_id, updated_user=user)
+    return updated_db_user
+
+# update user by id 
+@app.put("/user/{user_id}", response_model=schemas.User)
 def update_user(user_id: int, user:schemas.UserUpdate, db: Session = Depends(get_db)):
     updated_db_user = functions.update_user(db=db, user_id=user_id, updated_user=user)
     return updated_db_user
