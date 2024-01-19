@@ -6,16 +6,16 @@
 * is_active ==> boolean 
 
 # Developed API
-| SRL | METHOD | ROUTE | FUNCTIONALITY |ACCESS|
-| ------- | ------- | ----- | ------------- | ------------- |
-| *1* | *POST* | ```/token``` | _Login user_| _All users_|
-| *2* | *POST* | ```/users/``` | _Create new user_|_All users_|
-| *3* | *GET* | ```/users/``` | _Get all users list_|_All users_|
-| *4* | *GET* | ```/users/{user_id}``` | _Get indivisual users details_|_All users_|
-| *5* | *PATCH* | ```/users/{user_id}``` | _Partial update the user_|_All users_|
-| *6* | *PUT* | ```/users/{user_id}``` | _Full update the user_|_All users_|
-| *7* | *DELETE* | ```/users/{user_id}``` | _Delete the user_|_All users_|
-| *8* | *GET* | ```/``` | _Home page_|_All users_|
+| SRL | METHOD | ROUTE | FUNCTIONALITY | Required Fields | ACCESS |
+| ------- | ------- | ----- | ------------- | ------------- | ------------- |
+| *1* | *POST* | ```/token``` | _Login user_| _email, password_| _All users_|
+| *2* | *POST* | ```/users/``` | _Create new user_|_email, password_| _All users_|
+| *3* | *GET* | ```/users/``` | _Get all users list_|_None_| _All users_|
+| *4* | *GET* | ```/users/{user_id}``` | _Get indivisual users details_|_None_| _All users_|
+| *5* | *PATCH* | ```/users/{user_id}``` | _Update the user partially	_|_email, password, is_active_| _All users_|
+| *6* | *PUT* | ```/users/{user_id}``` | _Full update the user_|_email, password, is_active_| _All users_|
+| *7* | *DELETE* | ```/users/{user_id}``` | _Delete the user_|_None_| _All users_|
+| *8* | *GET* | ```/``` | _Home page_|_None_| _All users_|
 
 
 # Tools
