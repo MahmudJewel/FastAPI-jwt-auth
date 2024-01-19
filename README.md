@@ -1,5 +1,5 @@
 ## FastAPI => JWT authentication and CRUD operarations
-# Create has bellow fields
+# User has bellow fields
 * id ==> primary_key
 * email ==> unique
 * password ==> any
@@ -12,7 +12,7 @@
 | *2* | *POST* | ```/users/``` | _Create new user_|_email, password_| _All users_|
 | *3* | *GET* | ```/users/``` | _Get all users list_|_None_| _All users_|
 | *4* | *GET* | ```/users/{user_id}``` | _Get indivisual users details_|_None_| _All users_|
-| *5* | *PATCH* | ```/users/{user_id}``` | _Update the user partially	_|_email, password, is_active_| _All users_|
+| *5* | *PATCH* | ```/users/{user_id}``` | _Update the user partially_|_email, password, is_active_| _All users_|
 | *6* | *PUT* | ```/users/{user_id}``` | _Full update the user_|_email, password, is_active_| _All users_|
 | *7* | *DELETE* | ```/users/{user_id}``` | _Delete the user_|_None_| _All users_|
 | *8* | *GET* | ```/``` | _Home page_|_None_| _All users_|
