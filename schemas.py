@@ -16,6 +16,10 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+class UserUpdate(UserCreate):
+    is_active: bool
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
