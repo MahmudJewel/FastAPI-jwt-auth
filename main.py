@@ -52,12 +52,17 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-# Update user by id 
+# partial update user by id 
 @app.patch("/user/{user_id}", response_model=schemas.User)
 def update_user(user_id: int, user:schemas.UserUpdate, db: Session = Depends(get_db)):
     updated_db_user = functions.update_user(db=db, user_id=user_id, updated_user=user)
     return updated_db_user
 
+# delete user by id 
+@app.delete("/user/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    delete_user = functions.delete_user(db=db, user_id=user_id)
+    return delete_user
 
 # getting access token for login 
 @app.post("/token", response_model=schemas.Token)

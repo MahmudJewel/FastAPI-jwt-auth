@@ -41,6 +41,16 @@ def update_user(db: Session, user_id:int, updated_user:schemas.UserUpdate):
     db.refresh(db_user)
     return db_user
 
+def delete_user(db: Session, user_id:int):
+    db_user = get_user(db=db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(db_user)
+    db.commit()
+    # db.refresh(db_user)
+    return {"msg": f"User deleted for id {user_id}"}
+
+# =====================> login <============================
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
